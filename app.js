@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      
+        searchByAllTraitsPrompt();
       break;
       default:
     app(people); // restart app
@@ -56,6 +56,22 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+}
+function searchByAllTraitsPrompt(){
+let traitSearchInputArray=[];
+let traitSearchInputString=prompt("Please input your search criteria based on the following traits, seperated by a comma, in this format;\nGender, Date of Birth, Height in Inches, Weight, Eye Color, Occupation\nEXAMPLE\nmale, 1/18/1949, 61, 200, green, doctor\n\nAny fields you do not know or wish to search with, input 'NA'\nEXAMPLE\nmale, NA, 61, NA, green, NA").toLowerCase();
+traitSearchInputArray=traitSearchInputString.split(",");
+let inputArrayLength=traitSearchInputArray.length;
+let traitSearchInputArrayClean=[];
+for (let i=0; i<inputArrayLength;i++){
+    traitSearchInputArrayClean[i]=traitSearchInputArray[i].trim();
+}
+if(inputArrayLength===6){
+    //traitSearchInput=traitSearchInput.forEachtoLowerCase;
+    console.log(traitSearchInputArrayClean);
+    alert(traitSearchInputArrayClean);
+  }
+
 }
 
 function searchByName(people){
