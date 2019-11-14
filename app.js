@@ -3,6 +3,8 @@
 Build all of your functions for displaying and gathering information below (GUI).
 */
 
+let foundPerson = Object();
+
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -33,11 +35,18 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Or type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      let infoToDisplay = "ID Number: " + person.id + "\n";
+      infoToDisplay += "Gender: " + person.gender + "\n";
+      infoToDisplay += "Date of Birth: " + person.dob + "\n";
+      infoToDisplay += "Height: " + person.height + "\n";
+      infoToDisplay += "Weight: " + person.weight + "\n";
+      infoToDisplay += "Eye Color: " + person.gender + "\n";
+      infoToDisplay += "Occupation: " + person.gender + "\n";
+      alert(infoToDisplay);
     break;
     case "family":
     // TODO: get person's family
@@ -59,7 +68,8 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
+
+  foundPerson = people.find(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
       return true;
     }
@@ -67,6 +77,7 @@ function searchByName(people){
       return false;
     }
   })
+  console.log(foundPerson);
   // TODO: find the person using the name they entered
   return foundPerson;
 }
