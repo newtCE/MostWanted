@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      
+
       break;
       default:
     app(people); // restart app
@@ -44,6 +44,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
+    displayFamily(person, people);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -78,7 +79,109 @@ function searchByName(people){
   return foundPerson[0];
 }
 
+function searchByInfo(information){
+  let possibleMatches = [];
+  let isMatch = false;
 
+  for(let i = 0; i < people.length; i++){
+    if(information[0] === people[i].gender){
+      isMatch = true;
+    }
+    else if(information[0] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+    if(information[1] === people[i].dob){
+      isMatch = true;
+    }
+    else if(information[1] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+    if(information[2] === people[i].height){
+      isMatch = true;
+    }
+    else if(information[2] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+    if(information[3] === people[i].weight){
+      isMatch = true;
+    }
+    else if(information[3] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+    if(information[4] === people[i].eyeColor){
+      isMatch = true;
+    }
+    else if(information[4] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+    if(information[5] === people[i].occupation){
+      isMatch = true;
+    }
+    else if(information[5] === "na"){
+      isMatch = true;
+    }
+    else{
+      isMatch = false;
+      continue;
+    }
+
+    if(isMatch === true){
+      possibleMatches.push(people[i]);
+    }
+    else{
+      continue;
+    }
+
+  }
+
+}
+
+function displayFamily(person, people){
+  let parentList = "";
+  let foundParent = people.filter(function(person){
+  for(let i = 0; i < person.parents.length; i++){
+    if(person.parents[i] === people[i].id){
+      if(people[i].gender === "male"){
+        parentList += "Father: " + people[i].firstName + " " + people[i].lastName;
+      }
+      else{
+        parentList += "Mother: " + people[i].firstName + " " + people[i].lastName;
+      }
+      return true;
+    }  
+    else{
+      return false;
+    }
+  }
+  })
+
+  if(parentList === ""){
+    alert("No parents found.")
+  }
+  else{
+    alert(parentList)
+  }
+}
 
 // alerts a list of people
 function displayPeople(people){
@@ -97,8 +200,8 @@ function displayPerson(person){
   personInfo += "Date of Birth: " + person.dob + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Eye Color: " + person.gender + "\n";
-  personInfo += "Occupation: " + person.gender + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
 }
 
