@@ -3,8 +3,6 @@
 Build all of your functions for displaying and gathering information below (GUI).
 */
 
-let foundPerson = Object();
-
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -14,13 +12,15 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      
       break;
       default:
     app(people); // restart app
       break;
   }
   
+
+
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
 }
@@ -39,14 +39,8 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-      let infoToDisplay = "ID Number: " + person.id + "\n";
-      infoToDisplay += "Gender: " + person.gender + "\n";
-      infoToDisplay += "Date of Birth: " + person.dob + "\n";
-      infoToDisplay += "Height: " + person.height + "\n";
-      infoToDisplay += "Weight: " + person.weight + "\n";
-      infoToDisplay += "Eye Color: " + person.gender + "\n";
-      infoToDisplay += "Occupation: " + person.gender + "\n";
-      alert(infoToDisplay);
+    // Print all information
+    displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -69,18 +63,22 @@ function searchByName(people){
   let lastName = promptFor("What is the person's last name?", chars);
 
 
-  foundPerson = people.find(function(person){
+  let foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
+      alert("The function returned true!")
       return true;
-    }
+    }  
     else{
+      //alert("The function returned false!")
       return false;
     }
   })
   console.log(foundPerson);
   // TODO: find the person using the name they entered
-  return foundPerson;
+  return foundPerson[0];
 }
+
+
 
 // alerts a list of people
 function displayPeople(people){
@@ -94,7 +92,13 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  // TODO: finish getting the rest of the information to display
+  personInfo = "ID Number: " + person.id + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Date of Birth: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.gender + "\n";
+  personInfo += "Occupation: " + person.gender + "\n";
   alert(personInfo);
 }
 

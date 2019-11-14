@@ -2,8 +2,8 @@
 const data = [
 	{
 		"id": 272822514,
-		firstName: "Billy",
-		lastName: "Bob",
+		"firstName": "Billy",
+		"lastName": "Bob",
 		"gender": "male",
 		"dob": "1/18/1949",
 		"height": 71,
