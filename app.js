@@ -61,6 +61,10 @@ function mainMenu(person, people){
 function searchByAllTraitsPrompt(people){
 let traitSearchInputArray=[];
 let traitSearchInputString=prompt("Please input your search criteria based on the following traits, seperated by a comma, in this format;\nGender, Date of Birth, Height in Inches, Weight, Eye Color, Occupation\nEXAMPLE\nmale, 1/18/1949, 61, 200, green, doctor\n\nAny fields you do not know or wish to search with, input 'NA'\nEXAMPLE\nmale, NA, 61, NA, green, NA").toLowerCase();
+if (traitSearchInputString===null){
+    reload();
+    return;
+}
 traitSearchInputArray=traitSearchInputString.split(",");
 let inputArrayLength=traitSearchInputArray.length;
 let traitSearchInputArrayClean=[];
@@ -68,13 +72,24 @@ for (let i=0; i<inputArrayLength;i++){
     traitSearchInputArrayClean[i]=traitSearchInputArray[i].trim();
 }
 if(inputArrayLength===6){
-    searchByInfo(traitSearchInputArrayClean,people);
+    let nevCheck=traitSearchInputArrayClean.filter(checkIfNA);
+    if (nevCheck.length<6){
+      searchByInfo(traitSearchInputArrayClean,people);
+    }
+    else{
+      console.log("Hi, Nevin.");
+      alert("No traits to search!");
+      searchByAllTraitsPrompt(people);
+    }
 
   }
   else{
     searchByAllTraitsPrompt(people);
   }
 
+}
+function checkIfNA(entry){
+return entry==="na";
 }
 
 function searchByName(people){
@@ -171,7 +186,13 @@ function searchByInfo(information,people){
     }
 
   }
+  if (possibleMatches.length===0){
+    alert("Found No Matches with that criteria!");
+    searchByAllTraitsPrompt(people);
+  }
+  else{
   selectFromInformationSearchMatches(possibleMatches,people);
+  }
 }
 function selectFromInformationSearchMatches(possibleMatches,people){
 let matchesToDisplayArray=[];
