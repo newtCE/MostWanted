@@ -43,11 +43,13 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+    // Print immediate family memebers
     displayFamily(person, people);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    // Print list of all decendants
+    let descendantList = "Descendants: \n";
+    displayDescendants(findDescendants(person, people, descendantList));
     break;
     case "restart":
     app(people); // restart
@@ -237,6 +239,7 @@ function displayFamily(targetPerson, people){
     j = 0;
   }
 
+  // Detect if there are any siblings
   for(let i = 0; i < people.length; i++){
     console.log(people[i].firstName + " " + people[i].lastName);
 
@@ -246,6 +249,7 @@ function displayFamily(targetPerson, people){
 
   }
 
+  // Find spouse if their is one
   for(let i = 0; i < people.length; i++){
     console.log(people[i].firstName + " " + people[i].lastName);
 
@@ -255,12 +259,36 @@ function displayFamily(targetPerson, people){
 
   }
 
+  // Display immediate family
   if(parentList && siblingList && spouse === ""){
     alert("No family found.")
   }
   else{
     alert(parentList + siblingList + spouse)
   }
+}
+
+// Search for all descendants
+function findDescendants(ancestor, people, listOfDescendants){
+
+  for(let i = 0; i < people.length; i++){
+    if(people[i].parents.length > 0){
+      for(let j = 0; j < people[i].parents.length; j++){
+        if(ancestor.id === people[i].parents[j]){
+          console.log(people[i].firstName + " " + people[i].lastName);
+          listOfDescendants += people[i].firstName + " " + people[i].lastName + "\n";
+          listOfDescendants = findDescendants(people[i], people, listOfDescendants);
+        }
+      }
+    }
+  }
+
+  return listOfDescendants;
+}
+
+// Display list of descendants
+function displayDescendants(toDisplay){
+  alert(toDisplay);
 }
 
 // alerts a list of people
@@ -270,9 +298,8 @@ function displayPeople(people){
   }).join("\n"));
 }
 
+// Display all person's information
 function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo = "ID Number: " + person.id + "\n";
