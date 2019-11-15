@@ -44,7 +44,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
-    displayFamily(people[12], people);
+    displayFamily(person, people);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -68,6 +68,7 @@ for (let i=0; i<inputArrayLength;i++){
     traitSearchInputArrayClean[i]=traitSearchInputArray[i].trim();
 }
 if(inputArrayLength===6){
+    alert(traitSearchInputArrayClean);
     searchByInfo(traitSearchInputArrayClean,people);
 
   }
@@ -171,6 +172,8 @@ function searchByInfo(information,people){
     }
 
   }
+  alert(possibleMatches);
+  console.log(possibleMatches);
   selectFromInformationSearchMatches(possibleMatches,people);
 }
 function selectFromInformationSearchMatches(possibleMatches,people){
@@ -180,23 +183,18 @@ for (let i=0;i<possibleMatches.length;i++){
 matchesToDisplayArray[i]=(i+1)+") "+possibleMatches[i].firstName+" "+possibleMatches[i].lastName+"\n";
 }
 matchesToDisplayString=matchesToDisplayArray.join("");
-let userResultChoice=0
-userResultChoice=prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
-let userResultChoiceNumber=parseInt(userResultChoice);
-  if (userResultChoiceNumber<1||userResultChoiceNumber>(possibleMatches.length)||Number.isNaN(userResultChoiceNumber)){
-      selectFromInformationSearchMatches(possibleMatches,people);
-  }
-  else  {
-      mainMenu(possibleMatches[userResultChoiceNumber-1], people);
-  }
+prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
 
 }
 
 function displayFamily(targetPerson, people){
   let parentList = "";
+  let siblingList = "";
+  let spouse = "";
   let j = 0;
   let parentFound = false;
 
+  // Run through array of parents until all parents are identified
   for(let i = 0; i < targetPerson.parents.length; i++){
     console.log(targetPerson.parents[i]);
 
@@ -221,11 +219,29 @@ function displayFamily(targetPerson, people){
     j = 0;
   }
 
-  if(parentList === ""){
-    alert("No parents found.")
+  for(let i = 0; i < people.length; i++){
+    console.log(people[i].firstName + " " + people[i].lastName);
+
+    if(targetPerson.parents.toString() === people[i].parents.toString() && targetPerson.id !== people[i].id){
+      siblingList = "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
+    }
+
+  }
+
+  for(let i = 0; i < people.length; i++){
+    console.log(people[i].firstName + " " + people[i].lastName);
+
+    if(targetPerson.currentSpouse === people[i].id){
+      spouse = "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
+    }
+
+  }
+
+  if(parentList && siblingList && spouse === ""){
+    alert("No family found.")
   }
   else{
-    alert(parentList)
+    alert(parentList + siblingList + spouse)
   }
 }
 
