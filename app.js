@@ -182,7 +182,7 @@ let matchesToDisplayString="";
 for (let i=0;i<possibleMatches.length;i++){
 matchesToDisplayArray[i]=(i+1)+") "+possibleMatches[i].firstName+" "+possibleMatches[i].lastName+"\n";
 }
-matchesToDisplayString=matchesToDisplayArray.join();
+matchesToDisplayString=matchesToDisplayArray.join("");
 prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
 
 }
