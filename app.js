@@ -37,6 +37,8 @@ function mainMenu(person, people){
 
   let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Or type the option you want or 'restart' or 'quit'");
 
+  checkIfNull(displayOption);
+  
   switch(displayOption){
     case "info":
     // Print all information
@@ -65,10 +67,7 @@ function searchByAllTraitsPrompt(people){
   let traitSearchInputArray=[];
   let traitSearchInputString=prompt("Please input your search criteria based on the following traits, seperated by a comma, in this format;\nGender, Date of Birth, Height in Inches, Weight, Eye Color, Occupation\nEXAMPLE\nmale, 1/18/1949, 61, 200, green, doctor\n\nAny fields you do not know or wish to search with, input 'NA'\nEXAMPLE\nmale, NA, 61, NA, green, NA").toLowerCase();
   
-  if (traitSearchInputString===null){
-      reload();
-      return;
-  }
+  checkIfNull(traitSearchInputString);
   
   traitSearchInputArray=traitSearchInputString.split(",");
   let inputArrayLength=traitSearchInputArray.length;
@@ -103,10 +102,12 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
+  checkIfNull(firstName);
+  checkIfNull(lastName);
+
 
   let foundPerson = people.filter(function(person){
     if(person.firstName.toLowerCase() === firstName.toLowerCase() && person.lastName.toLowerCase() === lastName.toLowerCase()){
-      alert("The function returned true!")
       return true;
     }  
     else{
@@ -194,7 +195,7 @@ function searchByInfo(information,people){
 
   }
   
-  if (possibleMatches.length===0){
+  if (possibleMatches.length === 0){
     alert("Found No Matches with that criteria!");
     searchByAllTraitsPrompt(people);
   }
@@ -204,23 +205,24 @@ function searchByInfo(information,people){
 }
 
 function selectFromInformationSearchMatches(possibleMatches,people){
-  let matchesToDisplayArray=[];
-  let matchesToDisplayString="";  
+  let matchesToDisplayArray = [];
+  let matchesToDisplayString = "";  
 
   for (let i=0;i<possibleMatches.length;i++){
     matchesToDisplayArray[i]=(i+1)+") "+possibleMatches[i].firstName+" "+possibleMatches[i].lastName+"\n";
   }
 
-  matchesToDisplayString=matchesToDisplayArray.join("");
-  let userResultChoice=0
-  userResultChoice=prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
-  let userResultChoiceNumber=parseInt(userResultChoice);
+  matchesToDisplayString = matchesToDisplayArray.join("");
+  let userResultChoice = 0
+  userResultChoice = prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
+  checkIfNull(userResultChoice);
+  let userResultChoiceNumber = parseInt(userResultChoice);
 
-  if (userResultChoiceNumber<1||userResultChoiceNumber>(possibleMatches.length)||Number.isNaN(userResultChoiceNumber)){
+  if (userResultChoiceNumber < 1|| userResultChoiceNumber > (possibleMatches.length) || Number.isNaN(userResultChoiceNumber)){
       selectFromInformationSearchMatches(possibleMatches,people);
   }
   else  {
-      mainMenu(possibleMatches[userResultChoiceNumber-1], people);
+      mainMenu(possibleMatches[userResultChoiceNumber - 1], people);
   }
 }
 
@@ -345,4 +347,11 @@ function yesNo(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+
+function checkIfNull(input){
+  if (input === null){
+    reload();
+    return;
+  }
 }
