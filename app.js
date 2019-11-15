@@ -44,7 +44,7 @@ function mainMenu(person, people){
     break;
     case "family":
     // TODO: get person's family
-    displayFamily(person, people);
+    displayFamily(people[12], people);
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -213,24 +213,34 @@ let userResultChoiceNumber=parseInt(userResultChoice);
 
 }
 
-function displayFamily(person, people){
+function displayFamily(targetPerson, people){
   let parentList = "";
-  let foundParent = people.filter(function(person){
-  for(let i = 0; i < person.parents.length; i++){
-    if(person.parents[i] === people[i].id){
-      if(people[i].gender === "male"){
-        parentList += "Father: " + people[i].firstName + " " + people[i].lastName;
+  let j = 0;
+  let parentFound = false;
+
+  for(let i = 0; i < targetPerson.parents.length; i++){
+    console.log(targetPerson.parents[i]);
+
+    while(parentFound === false){
+      console.log(people[j].id);
+
+      if(targetPerson.parents[i] === people[j].id){
+        if(people[j].gender === "male"){
+          parentList += "Father: " + people[j].firstName + " " + people[j].lastName + "\n";
+        }
+        else{
+          parentList += "Mother: " + people[j].firstName + " " + people[j].lastName + "\n";
+        }
+
+        parentFound = true;
       }
-      else{
-        parentList += "Mother: " + people[i].firstName + " " + people[i].lastName;
-      }
-      return true;
+
+      j++;
     }  
-    else{
-      return false;
-    }
+
+    parentFound = false;
+    j = 0;
   }
-  })
 
   if(parentList === ""){
     alert("No parents found.")
