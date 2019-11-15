@@ -183,7 +183,15 @@ for (let i=0;i<possibleMatches.length;i++){
 matchesToDisplayArray[i]=(i+1)+") "+possibleMatches[i].firstName+" "+possibleMatches[i].lastName+"\n";
 }
 matchesToDisplayString=matchesToDisplayArray.join("");
-prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
+let userResultChoice=0
+userResultChoice=prompt("Please input the number that matches the result you'd like to further inspect:\n"+matchesToDisplayString);
+let userResultChoiceNumber=parseInt(userResultChoice);
+  if (userResultChoiceNumber<1||userResultChoiceNumber>(possibleMatches.length+1)){
+      selectFromInformationSearchMatches(possibleMatches,people);
+  }
+  else  {
+      mainMenu(possibleMatches[userResultChoiceNumber-1], people);
+  }
 
 }
 
