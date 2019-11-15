@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-        searchByAllTraitsPrompt();
+        searchByAllTraitsPrompt(people);
       break;
       default:
     app(people); // restart app
@@ -58,7 +58,7 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
-function searchByAllTraitsPrompt(){
+function searchByAllTraitsPrompt(people){
 let traitSearchInputArray=[];
 let traitSearchInputString=prompt("Please input your search criteria based on the following traits, seperated by a comma, in this format;\nGender, Date of Birth, Height in Inches, Weight, Eye Color, Occupation\nEXAMPLE\nmale, 1/18/1949, 61, 200, green, doctor\n\nAny fields you do not know or wish to search with, input 'NA'\nEXAMPLE\nmale, NA, 61, NA, green, NA").toLowerCase();
 traitSearchInputArray=traitSearchInputString.split(",");
@@ -68,9 +68,12 @@ for (let i=0; i<inputArrayLength;i++){
     traitSearchInputArrayClean[i]=traitSearchInputArray[i].trim();
 }
 if(inputArrayLength===6){
-    //traitSearchInput=traitSearchInput.forEachtoLowerCase;
-    console.log(traitSearchInputArrayClean);
     alert(traitSearchInputArrayClean);
+    searchByInfo(traitSearchInputArrayClean,people);
+
+  }
+  else{
+    searchByAllTraitsPrompt(people);
   }
 
 }
@@ -95,7 +98,7 @@ function searchByName(people){
   return foundPerson[0];
 }
 
-function searchByInfo(information){
+function searchByInfo(information,people){
   let possibleMatches = [];
   let isMatch = false;
 
@@ -169,7 +172,7 @@ function searchByInfo(information){
     }
 
   }
-
+  alert(possibleMatches);
 }
 
 function displayFamily(person, people){
