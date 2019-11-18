@@ -42,7 +42,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     // Print all information
-    displayPerson(person);
+    displayPerson(person,people);
     break;
     case "family":
     // Print immediate family memebers
@@ -78,6 +78,7 @@ function searchByAllTraitsPrompt(people){
   
   for (let i=0; i<inputArrayLength;i++){
       traitSearchInputArrayClean[i]=traitSearchInputArray[i].trim();
+      traitSearchInputArrayClean[i]=traitSearchInputArrayClean[i].replace(/\s/g, "");
   }
   
   if(inputArrayLength===6){
@@ -283,10 +284,12 @@ function displayFamily(targetPerson, people){
 
   // Display immediate family
   if(parentList && siblingList && spouse === ""){
-    alert("No family found.")
+    alert("No family found.");
+    mainMenu(targetPerson, people);
   }
   else{
-    alert(parentList + siblingList + spouse)
+    alert(parentList + siblingList + spouse);
+    mainMenu(targetPerson, people);
   }
 }
 
@@ -322,7 +325,7 @@ function displayPeople(people){
 }
 
 // Display all person's information
-function displayPerson(person){
+function displayPerson(person,people){
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo = "ID Number: " + person.id + "\n";
@@ -333,6 +336,7 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   alert(personInfo);
+  mainMenu(person, people);
 }
 
 // function that prompts and validates user input
