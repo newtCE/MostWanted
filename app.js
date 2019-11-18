@@ -35,7 +35,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Or type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Or type the option you want or 'restart' or 'quit'").toLowerCase();
 
   checkIfNull(displayOption);
   
@@ -115,12 +115,9 @@ function searchByName(people){
       return true;
     }  
     else{
-      //alert("The function returned false!")
       return false;
     }
   })
-  console.log(foundPerson);
-  // TODO: find the person using the name they entered
   return foundPerson[0];
 }
 
@@ -239,10 +236,8 @@ function displayFamily(targetPerson, people){
 
   // Run through array of parents until all parents are identified
   for(let i = 0; i < targetPerson.parents.length; i++){
-    console.log(targetPerson.parents[i]);
 
     while(parentFound === false){
-      console.log(people[j].id);
 
       if(targetPerson.parents[i] === people[j].id){
         if(people[j].gender === "male"){
@@ -265,7 +260,6 @@ function displayFamily(targetPerson, people){
   // Detect if there are any siblings
   if (targetPerson.parents[0]!==undefined){
     for(let i = 0; i < people.length; i++){
-      console.log(people[i].firstName + " " + people[i].lastName);
 
       if(targetPerson.parents.toString() === people[i].parents.toString() && targetPerson.id !== people[i].id){
         siblingList += "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
@@ -276,7 +270,6 @@ function displayFamily(targetPerson, people){
 
   // Find spouse if their is one
   for(let i = 0; i < people.length; i++){
-    console.log(people[i].firstName + " " + people[i].lastName);
 
     if(targetPerson.currentSpouse === people[i].id){
       spouse = "Spouse: " + people[i].firstName + " " + people[i].lastName + "\n";
@@ -302,7 +295,6 @@ function findDescendants(ancestor, people, listOfDescendants){
     if(people[i].parents.length > 0){
       for(let j = 0; j < people[i].parents.length; j++){
         if(ancestor.id === people[i].parents[j]){
-          console.log(people[i].firstName + " " + people[i].lastName);
           listOfDescendants += people[i].firstName + " " + people[i].lastName + "\n";
           listOfDescendants = findDescendants(people[i], people, listOfDescendants);
         }
@@ -310,6 +302,9 @@ function findDescendants(ancestor, people, listOfDescendants){
     }
   }
 
+  if(listOfDescendants === "Descendants: \n"){
+    listOfDescendants += "No Descendants Found."
+  }
   return listOfDescendants;
 }
 
