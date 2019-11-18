@@ -87,7 +87,7 @@ function searchByAllTraitsPrompt(people){
         searchByInfo(traitSearchInputArrayClean,people);
       }
       else{
-        console.log("Hi, Nevin.");
+        console.log("Psssssst. Hi, Nevin.");
         alert("No traits to search!");
         searchByAllTraitsPrompt(people);
       }
