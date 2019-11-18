@@ -267,7 +267,7 @@ function displayFamily(targetPerson, people){
     console.log(people[i].firstName + " " + people[i].lastName);
 
     if(targetPerson.parents.toString() === people[i].parents.toString() && targetPerson.id !== people[i].id){
-      siblingList = "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
+      siblingList += "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
     }
 
   }
@@ -283,7 +283,7 @@ function displayFamily(targetPerson, people){
   }
 
   // Display immediate family
-  if(parentList && siblingList && spouse === ""){
+  if(parentList === "" && siblingList === "" && spouse === ""){
     alert("No family found.");
     mainMenu(targetPerson, people);
   }
