@@ -51,15 +51,18 @@ function mainMenu(person, people){
     case "descendants":
     // Print list of all decendants
     let descendantList = "Descendants: \n";
-    displayDescendants(findDescendants(person, people, descendantList));
+    displayDescendants(findDescendants(person, people, descendantList),person,people);
     break;
     case "restart":
     app(people); // restart
     break;
     case "quit":
-    return; // stop execution
+    reload();
+    break;
+
     default:
     return mainMenu(person, people); // ask again
+    break;
   }
 }
 
@@ -306,8 +309,9 @@ function findDescendants(ancestor, people, listOfDescendants){
 }
 
 // Display list of descendants
-function displayDescendants(toDisplay){
-  alert(toDisplay);
+function displayDescendants(toDisplay,person,people){
+alert(toDisplay);
+mainMenu(person, people);
 }
 
 // alerts a list of people
