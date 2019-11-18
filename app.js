@@ -263,13 +263,15 @@ function displayFamily(targetPerson, people){
   }
 
   // Detect if there are any siblings
-  for(let i = 0; i < people.length; i++){
-    console.log(people[i].firstName + " " + people[i].lastName);
+  if (targetPerson.parents[0]!==undefined){
+    for(let i = 0; i < people.length; i++){
+      console.log(people[i].firstName + " " + people[i].lastName);
 
-    if(targetPerson.parents.toString() === people[i].parents.toString() && targetPerson.id !== people[i].id){
-      siblingList += "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
+      if(targetPerson.parents.toString() === people[i].parents.toString() && targetPerson.id !== people[i].id){
+        siblingList += "Sibling: " + people[i].firstName + " " + people[i].lastName + "\n";
+      }
+
     }
-
   }
 
   // Find spouse if their is one
